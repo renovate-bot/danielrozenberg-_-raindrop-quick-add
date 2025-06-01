@@ -1,0 +1,33 @@
+{
+  "name": "raindrop-quick-add",
+  "version": "1.0.0",
+  "description": "A Firefox extension to quickly add, delete, or archive bookmarks in Raindrop",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danielrozenberg/raindrop-quick-add"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run build:static && npm run build:esbuild",
+    "build:static": "cp -r static/* dist/",
+    "build:esbuild": "esbuild src/*.ts --bundle --format=esm --sourcemap --outdir=dist/ --out-extension:.js=.mjs",
+    "clean": "rm -rf dist/ && mkdir dist/",
+    "lint": "eslint ."
+  },
+  "author": "Daniel Rozenberg",
+  "license": "ISC",
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "4.4.2",
+    "@types/eslint": "9.6.1",
+    "@eslint/js": "9.27.0",
+    "@eslint/json": "0.12.0",
+    "@types/webextension-polyfill": "0.12.3",
+    "esbuild": "0.25.5",
+    "eslint": "9.27.0",
+    "eslint-config-prettier": "10.1.5",
+    "eslint-plugin-prettier": "5.4.0",
+    "prettier": "3.5.3",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.33.0"
+  }
+}

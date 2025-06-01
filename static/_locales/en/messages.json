@@ -1,0 +1,86 @@
+{
+  "extensionName": {
+    "message": "Raindrop Quick Add",
+    "description": "Name of the extension."
+  },
+  "extensionDescription": {
+    "message": "Quickly add, delete, or archive bookmarks in Raindrop",
+    "description": "Description of the extension."
+  },
+  "welcomeDescription": {
+    "message": "Let's set up the extension to work with your Raindrop account.",
+    "description": "Description of the welcome page."
+  },
+  "welcomeTabsPermissionSectionTitle": {
+    "message": "Step 1: Permission to access your tabs",
+    "description": "Title of the section explaining the tabs permission."
+  },
+  "welcomeTabsPermissionSectionDescription": {
+    "message": "This extension needs permission to access your tabs to be able to display whether a tab is bookmarked in your Raindrop account.",
+    "description": "Description of the tabs permission section."
+  },
+  "welcomeTabsPermissionActionButton": {
+    "message": "Grant permission",
+    "description": "Button text to grant tabs permission."
+  },
+  "welcomeRaindropPermissionSectionTitle": {
+    "message": "Step 2: Permission to access Raindrop",
+    "description": "Title of the section explaining the Raindrop permission."
+  },
+  "welcomeRaindropPermissionActionButton": {
+    "message": "Log in to Raindrop",
+    "description": "Button text to log in to Raindrop."
+  },
+  "welcomeSettingsSectionTitle": {
+    "message": "Step 3: Choose what to do when removing a bookmark",
+    "description": "Title of the section explaining the settings."
+  },
+  "welcomeSettingsRemoveLabel": {
+    "message": "Where should bookmarks go when removed?",
+    "description": "Label for the setting that allows the user to choose what happens when a bookmark is removed."
+  },
+  "welcomeSettingsRemoveToTrash": {
+    "message": "Trash",
+    "description": "Option to delete a bookmark, sending it to the trash."
+  },
+  "welcomeCloseButton": {
+    "message": "Close",
+    "description": "Button text to close the welcome page."
+  },
+  "authenticationErrorDescription": {
+    "message": "There was an error while trying to authenticate with Raindrop. Please try again later.",
+    "description": "Description shown when there is an authentication error."
+  },
+  "pageActionNotAuthorized": {
+    "message": "Log in to this extension via Raindrop.",
+    "description": "Message shown when the user has not authorized the extension."
+  },
+  "pageActionPending": {
+    "message": "Loading…",
+    "description": "Message shown when the extension is waiting for a response from the Raindrop API."
+  },
+  "pageActionAddBookmark": {
+    "message": "Add to Raindrop",
+    "description": "Button text for adding a bookmark."
+  },
+  "pageActionRemoveBookmark": {
+    "message": "Remove from Raindrop",
+    "description": "Button text for removing a bookmark."
+  },
+  "pageActionApiError": {
+    "message": "Encountered an error while communicating with Raindrop",
+    "description": "Message shown when there was an API communication error with Raindrop"
+  },
+  "menuOptions": {
+    "message": "Options",
+    "description": "Text for the context menu item that opens the options page."
+  },
+  "optionsRequireInitialSetup": {
+    "message": "You need to complete the initial setup before using the extension.",
+    "description": "Message shown in options when the initial setup is not completed."
+  },
+  "optionsOpenSetup": {
+    "message": "Open setup page",
+    "description": "Button text to open the setup page from options."
+  }
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title data-i18n-id="extensionName"></title>
+    <style>
+        :root {
+            color-scheme: light dark;
+        }
+
+        html,
+        body {
+            background: light-dark(transparent, rgb(35, 34, 43));
+            box-sizing: border-box;
+            color: light-dark(hsl(210, 6%, 14%), rgb(251, 251, 254));
+            cursor: default;
+            display: flex;
+            flex-direction: column;
+            font: caption;
+            height: 18rem;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body * {
+            box-sizing: border-box;
+            text-align: start;
+        }
+
+        .panel-section {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .panel-section-formElements {
+            flex-direction: column;
+            padding: 16px;
+        }
+
+        .panel-formElements-item {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 12px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            & label {
+                flex-shrink: 0;
+                margin-right: 6px;
+                text-align: right;
+            }
+
+            & select {
+                flex-grow: 1;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="error-panel" class="panel-section panel-section-formElements hidden">
+        <div class="panel-formElements-item">
+            <label for="open-setup" data-i18n-id="optionsRequireInitialSetup"></label>
+            <button id="open-setup" data-i18n-id="optionsOpenSetup"></button>
+        </div>
+    </div>
+
+    <div id="settings-panel" class="panel-section panel-section-formElements">
+        <div class="panel-formElements-item">
+            <label for="remove-collection-id" data-i18n-id="welcomeSettingsRemoveLabel"></label>
+            <select id="remove-collection-id" disabled>
+                <option value="0" data-i18n-id="welcomeSettingsRemoveToTrash"></option>
+            </select>
+        </div>
+    </div>
+
+    <script src="./options.mjs" type="module"></script>
+</body>
+</html>

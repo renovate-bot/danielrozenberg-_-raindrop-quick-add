@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="32"
+   height="32"
+   viewBox="0 0 8.4666665 8.4666666"
+   version="1.1"
+   id="svg5"
+   xml:space="preserve"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="button-error.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="14.638496"
+     inkscape:cx="15.097179"
+     inkscape:cy="25.27582"
+     inkscape:window-width="2560"
+     inkscape:window-height="1355"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" /><defs
+     id="defs2" /><g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"><path
+       id="circle1328"
+       style="fill:none;stroke:#ffffff;stroke-width:1.05833;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       d="m 4.2333333,1.6347973 c -1.0516956,1.75e-5 -1.9042765,0.6086433 -1.9042765,2.453842 -0.9535184,1.59e-5 -1.72649375,0.7729912 -1.7265096,1.7265096 1.585e-5,0.9535184 0.7729912,1.7264937 1.7265096,1.7265096 H 6.1376099 C 7.0911283,7.5416426 7.8641036,6.7686673 7.8641195,5.8151489 7.8641036,4.8616305 7.0911283,4.0886552 6.1376099,4.0886393 c 0,-1.8442693 -0.852581,-2.4538245 -1.9042766,-2.453842 z"
+       sodipodi:nodetypes="cccccccc" /><path
+       id="path4869"
+       style="fill:#ff0000;stroke:#800000;stroke-width:1.0555;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="M 7.8138415,5.5747783 5.5927943,7.8318752 M 5.574778,5.5928129 7.8318596,7.8138424" /></g></svg>

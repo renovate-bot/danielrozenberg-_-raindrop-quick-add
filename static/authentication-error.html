@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title data-i18n-id="extensionName"></title>
+    <style>
+        :root {
+            color-scheme: light dark;
+        }
+
+        html {
+            background: light-dark(hsl(0, 0%, 100%), hsl(228, 3%, 17%));
+        }
+
+        body {
+            color: light-dark(hsl(0, 0%, 10%), hsl(240, 2%, 90%));
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+            line-height: 1.4;
+            margin: 0 auto;
+            max-width: 40em;
+        }
+
+        h1 {
+            border-bottom: 1px solid light-dark(hsl(0, 0%, 50%), hsl(230, 3%, 60%));
+            font-size: 1.6rem;
+            font-weight: 600;
+            padding-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1 data-i18n-id="extensionName"></h1>
+    <p data-i18n-id="authenticationErrorDescription"></p>
+
+    <script src="./authentication-error.mjs" type="module"></script>
+</body>
+</html>

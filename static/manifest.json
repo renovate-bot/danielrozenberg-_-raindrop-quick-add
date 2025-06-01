@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "version": "1.0.0",
+  "description": "__MSG_extensionDescription__",
+  "author": "Daniel Rozenberg",
+  "homepage_url": "https://github.com/danielrozenberg/raindrop-quick-add",
+  "icons": {
+    "48": "icons/logo.svg",
+    "96": "icons/logo.svg"
+  },
+  "background": {
+    "scripts": ["background.mjs"],
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://firefox.danielrozenberg.com/raindrop-quick-add/*"],
+      "js": ["authentication-verifier.mjs"],
+      "run_at": "document_start"
+    }
+  ],
+  "page_action": {
+    "default_icon": "icons/button-pending.svg",
+    "default_title": "__MSG_pageActionPending__",
+    "hide_matches": ["*://app.raindrop.io/*"],
+    "show_matches": ["*://*/*"]
+  },
+  "options_ui": {
+    "page": "options.html"
+  },
+  "permissions": ["alarms", "menus", "storage", "tabs"],
+  "host_permissions": ["*://*/*"],
+  "default_locale": "en",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "raindrop-quick-add@firefox.danielrozenberg.com"
+    }
+  }
+}
