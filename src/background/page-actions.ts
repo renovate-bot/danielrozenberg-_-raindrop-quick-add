@@ -29,6 +29,7 @@ export async function setPageActionNotAuthorized(tabId: number): Promise<void> {
 export async function checkIfBookmarked(
   tabId: number,
   url: string,
+  title: string | undefined,
 ): Promise<void> {
   if (!(await isAuthenticated())) {
     console.warn(
@@ -45,12 +46,12 @@ export async function checkIfBookmarked(
     const response = await apiSearch(-1, url);
     if (response.count) {
       await setPageAction(tabId, {
-        url,
         state: PageState.RemoveBookmark,
+        url,
         bookmarkId: response.items[0]._id,
       });
     } else {
-      await setPageAction(tabId, { url, state: PageState.AddBookmark });
+      await setPageAction(tabId, { state: PageState.AddBookmark, url, title });
     }
   } catch (error) {
     console.error('Error while searching for Raindrop bookmark', error);

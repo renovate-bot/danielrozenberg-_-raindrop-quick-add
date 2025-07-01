@@ -43,6 +43,7 @@ interface SearchResponse {
 
 interface AddBookmarkRequest {
   link: string;
+  title?: string;
 }
 
 interface AddBookmarkResponse {
@@ -120,8 +121,12 @@ export async function apiSearch(
 
 export async function apiAddBookmark(
   url: string,
+  title: string | undefined,
 ): Promise<AddBookmarkResponse> {
-  return authenticatedRequestImpl('POST', BOOKMARK_URL, { link: url });
+  return authenticatedRequestImpl('POST', BOOKMARK_URL, {
+    link: url,
+    ...(title ? { title } : {}),
+  });
 }
 
 export async function apiDeleteBookmark(

@@ -114,12 +114,17 @@ browser.pageAction.onClicked.addListener(async (tab) => {
 
     case PageState.AddBookmark:
       console.log('Page action clicked to add bookmark');
-      await addBookmark(tab.id, pageStateInfo.url);
+      await addBookmark(tab.id, pageStateInfo.url, tab.title);
       break;
 
     case PageState.RemoveBookmark:
       console.log('Page action clicked to remove bookmark');
-      await removeBookmark(tab.id, pageStateInfo.url, pageStateInfo.bookmarkId);
+      await removeBookmark(
+        tab.id,
+        pageStateInfo.url,
+        pageStateInfo.bookmarkId,
+        tab.title,
+      );
       break;
 
     default:
@@ -141,25 +146,25 @@ browser.menus.onClicked.addListener(async (info) => {
 
 browser.tabs.onUpdated.addListener(
   async (tabId, changeInfo) => {
-    const { url } = changeInfo;
+    const { url, title } = changeInfo;
     if (!url?.match(/^https?:\/\//)) {
       return;
     }
 
-    await checkIfBookmarked(tabId, url);
+    await checkIfBookmarked(tabId, url, title);
   },
   { properties: ['url'] },
 );
 
 browser.tabs.onActivated.addListener(async ({ tabId }) => {
-  const { url } = await browser.tabs.get(tabId);
+  const { url, title } = await browser.tabs.get(tabId);
   if (!url?.match(/^https?:\/\//)) {
     return;
   }
 
   const pageState = await getPageState(tabId);
   if (!pageState) {
-    await checkIfBookmarked(tabId, url);
+    await checkIfBookmarked(tabId, url, title);
   }
 });
 

@@ -10,13 +10,14 @@ interface AbstractPageStateInfo {
   state: PageState;
 }
 
-interface BasePageStateInfo extends AbstractPageStateInfo {
+interface BasicPageStateInfo extends AbstractPageStateInfo {
   state: PageState.NotAuthorized | PageState.Pending | PageState.Error;
 }
 
 interface UrlPageStateInfo extends AbstractPageStateInfo {
   state: PageState.AddBookmark;
   url: string;
+  title: string | undefined;
 }
 
 interface BookmarkPageStateInfo extends AbstractPageStateInfo {
@@ -26,6 +27,6 @@ interface BookmarkPageStateInfo extends AbstractPageStateInfo {
 }
 
 type PageStateInfo =
-  | BasePageStateInfo
+  | BasicPageStateInfo
   | UrlPageStateInfo
   | BookmarkPageStateInfo;

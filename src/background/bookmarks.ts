@@ -3,12 +3,16 @@ import { getCollectionIdForRemoval } from '../common/settings';
 import { apiAddBookmark, apiDeleteBookmark, apiUpdateBookmark } from './api';
 import { setPageAction } from './page-actions';
 
-export async function addBookmark(tabId: number, url: string): Promise<void> {
+export async function addBookmark(
+  tabId: number,
+  url: string,
+  title: string | undefined,
+): Promise<void> {
   console.log('Adding bookmark for URL', url, 'for tab', tabId);
 
   await setPageAction(tabId, { state: PageState.Pending });
 
-  const response = await apiAddBookmark(url);
+  const response = await apiAddBookmark(url, title);
   if (!response.result) {
     console.error('Failed to add bookmark:', response);
     await setPageAction(tabId, { state: PageState.Error });
@@ -28,6 +32,7 @@ export async function removeBookmark(
   tabId: number,
   url: string,
   bookmarkId: number,
+  title: string | undefined,
 ): Promise<void> {
   console.log('Removing bookmark with ID', bookmarkId, 'for tab', tabId);
 
@@ -46,8 +51,5 @@ export async function removeBookmark(
   }
 
   console.log(`Bookmark removed with ID: ${bookmarkId.toFixed(0)}`);
-  return setPageAction(tabId, {
-    state: PageState.AddBookmark,
-    url,
-  });
+  return setPageAction(tabId, { state: PageState.AddBookmark, url, title });
 }
