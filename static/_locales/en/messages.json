@@ -51,6 +51,10 @@
     "message": "There was an error while trying to authenticate with Raindrop. Please try again later.",
     "description": "Description shown when there is an authentication error."
   },
+  "commandDescription": {
+    "message": "Add or remove the current page from Raindrop",
+    "description": "Description of the command that adds or removes the current page from Raindrop."
+  },
   "pageActionNotAuthorized": {
     "message": "Log in to this extension via Raindrop.",
     "description": "Message shown when the user has not authorized the extension."
