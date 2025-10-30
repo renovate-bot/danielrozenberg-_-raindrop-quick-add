@@ -9,14 +9,13 @@
 
         html,
         body {
-            background: light-dark(transparent, rgb(35, 34, 43));
+            background: light-dark(transparent, hsl(247 12% 15%));
             box-sizing: border-box;
-            color: light-dark(hsl(210, 6%, 14%), rgb(251, 251, 254));
+            color: light-dark(hsl(210 6% 14%), hsl(240 60% 99%));
             cursor: default;
             display: flex;
             flex-direction: column;
             font: caption;
-            height: 18rem;
             margin: 0;
             padding: 0;
             user-select: none;
@@ -30,6 +29,19 @@
         .panel-section {
             display: flex;
             flex-direction: row;
+
+            & h2 {
+                font-weight: 300;
+                margin-block-end: 0.4rem;
+
+                &:first-child {
+                    margin-block-start: 0;
+                }
+            }
+
+            & p {
+                margin-block-start: 0;
+            }
         }
 
         .panel-section-formElements {
@@ -41,20 +53,79 @@
             align-items: center;
             display: flex;
             flex-direction: row;
-            margin-bottom: 12px;
+            margin-block-end: 0.8rem;
 
             &:last-child {
-                margin-bottom: 0;
+                margin-block-end: 0;
             }
 
             & label {
                 flex-shrink: 0;
-                margin-right: 6px;
-                text-align: right;
+                margin-inline-end: 0.4rem;
             }
 
             & select {
                 flex-grow: 1;
+            }
+        }
+
+        #button-location-demo-images {
+            background-color: light-dark(hsl(0 0% 72%), hsl(247 12% 18%));
+            padding: 16px;
+
+            & .circled {
+                align-items: center;
+                display: inline-flex;
+                height: 0;
+                justify-content: center;
+                padding: 12px;
+                width: 0;
+
+                &.active {
+                    border-radius: 2px;
+                    outline: 3px solid light-dark(hsl(216 100% 49%), hsl(185 100% 43%));
+                    outline-offset: 12px;
+                }
+
+                &:not(.active) {
+                    filter: blur(1.5px);
+                    opacity: 0.5;
+                }
+            }
+
+            & img {
+                filter: brightness(0%) invert(100%) brightness(18%);
+                height: 24px;
+                object-fit: contain;
+                width: 24px;
+
+                @media (prefers-color-scheme: dark) {
+                    filter: brightness(0%) invert(100%) brightness(82%);
+                }
+            }
+
+            & #toolbar {
+                align-items: center;
+                background-color: light-dark(white, hsl(240 2% 34%));
+                display: flex;
+                height: 60px;
+                gap: 24px;
+                margin-inline: auto;
+                padding-inline-end: 24px;
+                width: fit-content;
+
+                & #address-bar {
+                    align-items: center;
+                    background-color: light-dark(hsl(0 0% 95%), hsl(240 2% 24%));
+                    border-end-end-radius: 6px;
+                    border-start-end-radius: 4px;
+                    display: flex;
+                    gap: 16px;
+                    height: 48px;
+                    justify-content: flex-end;
+                    padding-inline-end: 16px;
+                    width: 100px;
+                }
             }
         }
 
@@ -72,11 +143,33 @@
     </div>
 
     <div id="settings-panel" class="panel-section panel-section-formElements">
+        <h2 data-i18n-id="optionSettingsSectionHeader"></h2>
+
         <div class="panel-formElements-item">
             <label for="remove-collection-id" data-i18n-id="welcomeSettingsRemoveLabel"></label>
             <select id="remove-collection-id" disabled>
                 <option value="0" data-i18n-id="welcomeSettingsRemoveToTrash"></option>
             </select>
+        </div>
+
+        <h2 data-i18n-id="optionButtonLocationSectionHeader"></h2>
+
+        <p id="button-location-address-bar-description" data-i18n-id="optionsButtonLocationAddressBarDescription"></p>
+        <p id="button-location-toolbar-description" data-i18n-id="optionsButtonLocationToolbarDescription"></p>
+
+        <div id="button-location-demo-images">
+            <div id="toolbar">
+                <div id="address-bar">
+                    <span id="address-bar-icon" class="circled">
+                        <img src="./icons/button-add.svg" alt="">
+                    </span>
+                    <img src="./icons/acorn/bookmarks-12.svg" alt="">
+                </div>
+                <img src="./icons/acorn/download-16.svg" alt="">
+                <span id="toolbar-icon" class="circled">
+                    <img src="./icons/button-add.svg" alt="">
+                </span>
+            </div>
         </div>
     </div>
 

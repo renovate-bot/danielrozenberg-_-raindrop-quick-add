@@ -70,11 +70,28 @@ export async function setPageAction(
   const titleMessageId =
     TITLE_MESSAGE_IDS.get(pageStateInfo.state) ?? 'pageActionApiError';
 
-  await browser.pageAction.setIcon({
+  // Every state except Pending is actionable for the toolbar button.
+  if (pageStateInfo.state === PageState.Pending) {
+    await browser.action.disable(tabId);
+  } else {
+    await browser.action.enable(tabId);
+  }
+
+  // Show or hide the page action based on whether the action button has been
+  // added to the toolbar.
+  const { isOnToolbar } = await browser.action.getUserSettings();
+  if (isOnToolbar) {
+    await browser.pageAction.hide(tabId);
+  } else {
+    await browser.pageAction.show(tabId);
+  }
+  const api = isOnToolbar ? browser.action : browser.pageAction;
+
+  await api.setIcon({
     path: iconPath,
     tabId,
   });
-  browser.pageAction.setTitle({
+  await api.setTitle({
     title: browser.i18n.getMessage(titleMessageId),
     tabId,
   });

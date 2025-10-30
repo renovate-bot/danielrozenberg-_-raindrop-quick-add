@@ -59,6 +59,10 @@
     "message": "Log in to this extension via Raindrop.",
     "description": "Message shown when the user has not authorized the extension."
   },
+  "actionDefaultLabel": {
+    "message": "Raindrop Quick Add",
+    "description": "Message shown as the toolbar button label when no state is set for the page."
+  },
   "pageActionPending": {
     "message": "Loading…",
     "description": "Message shown when the extension is waiting for a response from the Raindrop API."
@@ -86,5 +90,21 @@
   "optionsOpenSetup": {
     "message": "Open setup page",
     "description": "Button text to open the setup page from options."
+  },
+  "optionSettingsSectionHeader": {
+    "message": "Settings",
+    "description": "Header for the settings section in options."
+  },
+  "optionButtonLocationSectionHeader": {
+    "message": "Extension button location",
+    "description": "Header for the section that explains where the extension button is located."
+  },
+  "optionsButtonLocationAddressBarDescription": {
+    "message": "The extension button is located in the address bar. You can move it to the toolbar by using \"Customize Toolbar\" in your browser.",
+    "description": "Description shown when the extension button is located in the address bar."
+  },
+  "optionsButtonLocationToolbarDescription": {
+    "message": "The extension button is located in the toolbar. You can return it to the address bar by removing it from your browser's toolbar.",
+    "description": "Description shown when the extension button is located in the toolbar."
   }
 }

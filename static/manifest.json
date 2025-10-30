@@ -29,6 +29,10 @@
       "run_at": "document_start"
     }
   ],
+  "action": {
+    "default_icon": "icons/button-pending.svg",
+    "default_title": "__MSG_actionDefaultLabel__"
+  },
   "page_action": {
     "default_icon": "icons/button-pending.svg",
     "default_title": "__MSG_pageActionPending__",

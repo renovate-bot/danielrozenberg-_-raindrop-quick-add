@@ -7,6 +7,7 @@ import {
 import { addBookmark, removeBookmark } from './background/bookmarks';
 import {
   checkIfBookmarked,
+  setPageAction,
   setPageActionNotAuthorized,
 } from './background/page-actions';
 import { getAccessTokenFromStorage } from './common/access-token';
@@ -93,60 +94,84 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
   await requestRefreshAccessToken(accessToken.refreshToken);
 });
 
-browser.pageAction.onClicked.addListener(async (tab) => {
-  if (!tab.id) {
-    console.warn('Page action clicked without a tab ID');
-    return;
-  }
+browser.action.onUserSettingsChanged.addListener(async ({ isOnToolbar }) => {
+  console.log(
+    'Action button',
+    isOnToolbar ? 'added to' : 'removed from',
+    'toolbar',
+  );
 
-  const pageStateInfo = await getPageState(tab.id);
-  switch (pageStateInfo?.state) {
-    case PageState.NotAuthorized:
-      await browser.tabs.create({
-        active: true,
-        url: AUTHORIZATION_URL,
-      });
-      break;
-
-    case PageState.Pending:
-      console.log('Page action clicked while pending');
-      break;
-
-    case PageState.AddBookmark:
-      console.log('Page action clicked to add bookmark');
-      await addBookmark(tab.id, pageStateInfo.url, tab.title);
-      break;
-
-    case PageState.RemoveBookmark:
-      console.log('Page action clicked to remove bookmark');
-      await removeBookmark(
-        tab.id,
-        pageStateInfo.url,
-        pageStateInfo.bookmarkId,
-        tab.title,
-      );
-      break;
-
-    default:
-      console.warn('Unknown page state:', pageStateInfo?.state);
-      return;
+  for (const tab of await browser.tabs.query({
+    active: true,
+    url: ['http://*/*', 'https://*/*'],
+  })) {
+    if (!tab.id) {
+      continue;
+    }
+    if (isOnToolbar) {
+      await browser.pageAction.hide(tab.id);
+    } else {
+      await browser.pageAction.show(tab.id);
+    }
   }
 });
 
-browser.menus.onClicked.addListener(async (info) => {
-  switch (info.menuItemId) {
-    case 'options':
+[browser.action, browser.pageAction].forEach(({ onClicked }) => {
+  onClicked.addListener(async (tab) => {
+    if (!tab.id) {
+      console.warn('Button clicked without a tab ID');
+      return;
+    }
+
+    const pageStateInfo = await getPageState(tab.id);
+    switch (pageStateInfo?.state) {
+      case PageState.NotAuthorized:
+        await browser.tabs.create({
+          active: true,
+          url: AUTHORIZATION_URL,
+        });
+        break;
+
+      case PageState.Pending:
+        console.log('Button clicked while page state is pending; do nothing');
+        break;
+
+      case PageState.AddBookmark:
+        console.log('Button clicked to add bookmark');
+        await addBookmark(tab.id, pageStateInfo.url, tab.title);
+        break;
+
+      case PageState.RemoveBookmark:
+        console.log('Button clicked to remove bookmark');
+        await removeBookmark(
+          tab.id,
+          pageStateInfo.url,
+          pageStateInfo.bookmarkId,
+          tab.title,
+        );
+        break;
+
+      default:
+        console.warn('Unknown page state:', pageStateInfo?.state);
+        return;
+    }
+  });
+});
+
+browser.menus.onClicked.addListener(async ({ menuItemId }) => {
+  switch (menuItemId) {
+    case 'optionsAction':
+    case 'optionsPageAction':
       await browser.runtime.openOptionsPage();
       break;
 
     default:
-      console.warn('Unknown context menu item clicked:', info.menuItemId);
+      console.warn('Unknown context menu item clicked:', menuItemId);
   }
 });
 
 browser.tabs.onUpdated.addListener(
-  async (tabId, changeInfo) => {
-    const { url, title } = changeInfo;
+  async (tabId, { url, title }) => {
     if (!url?.match(/^https?:\/\//)) {
       return;
     }
@@ -163,7 +188,9 @@ browser.tabs.onActivated.addListener(async ({ tabId }) => {
   }
 
   const pageState = await getPageState(tabId);
-  if (!pageState) {
+  if (pageState) {
+    await setPageAction(tabId, pageState);
+  } else {
     await checkIfBookmarked(tabId, url, title);
   }
 });
@@ -172,8 +199,19 @@ browser.tabs.onRemoved.addListener(async (tabId) => {
   await clearPageState(tabId);
 });
 
-browser.menus.create({
-  id: 'options',
-  title: browser.i18n.getMessage('menuOptions'),
-  contexts: ['page_action'],
-});
+async function init() {
+  browser.menus.create({
+    id: 'optionsAction',
+    title: browser.i18n.getMessage('menuOptions'),
+    contexts: ['action'],
+  });
+  browser.menus.create({
+    id: 'optionsPageAction',
+    title: browser.i18n.getMessage('menuOptions'),
+    contexts: ['page_action'],
+  });
+
+  // By default the toolbar button is disabled until we know the page state.
+  await browser.action.disable();
+}
+void init();
