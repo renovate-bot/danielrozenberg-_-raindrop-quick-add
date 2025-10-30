@@ -122,8 +122,12 @@ export async function apiSearch(
 export async function apiAddBookmark(
   url: string,
   title: string | undefined,
+  collectionId: number,
 ): Promise<AddBookmarkResponse> {
   return authenticatedRequestImpl('POST', BOOKMARK_URL, {
+    collection: {
+      $id: collectionId,
+    },
     link: url,
     ...(title ? { title } : {}),
   });

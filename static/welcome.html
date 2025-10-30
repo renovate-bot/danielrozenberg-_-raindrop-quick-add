@@ -131,9 +131,16 @@
     <section id="settings-section" inert>
         <h2 data-i18n-id="welcomeSettingsSectionTitle"></h2>
         <div class="action-dropdown">
-            <label for="remove-collection-id" data-i18n-id="welcomeSettingsRemoveLabel"></label>
-            <select id="remove-collection-id" disabled>
-                <option value="0" data-i18n-id="welcomeSettingsRemoveToTrash"></option>
+            <label for="bookmarks-collection-id" data-i18n-id="settingsBookmarksCollectionIdLabel"></label>
+            <select id="bookmarks-collection-id" disabled>
+                <option value="-1" data-i18n-id="settingsBookmarkToUnsorted"></option>
+            </select>
+        </div>
+
+        <div class="action-dropdown">
+            <label for="removal-collection-id" data-i18n-id="settingsRemovalCollectionIdLabel"></label>
+            <select id="removal-collection-id" disabled>
+                <option value="0" data-i18n-id="settingsRemoveToTrashOption"></option>
             </select>
         </div>
         <div class="action-button">

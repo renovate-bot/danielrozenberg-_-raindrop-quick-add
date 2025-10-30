@@ -1,6 +1,6 @@
 import { getAccessTokenFromStorage } from './common/access-token';
 import { ALL_HOST_PERMISSION } from './common/host-permission';
-import { setCollectionIdForRemoval } from './common/settings';
+import { getSettings, updateSettings } from './common/settings';
 import { $ } from './document/helper';
 import { initializeI18n } from './document/i18n';
 import { updateCollectionIds } from './document/settings';
@@ -12,7 +12,10 @@ declare const browser: Browser;
 const errorPanel = $('#error-panel');
 const openSetupButton = $('#open-setup');
 const settingsPanel = $('#settings-panel');
-const settingsSelector = $('#remove-collection-id') as HTMLSelectElement;
+const bookmarksSettingsSelect = $(
+  '#bookmarks-collection-id',
+) as HTMLSelectElement;
+const removalSettingsSelect = $('#removal-collection-id') as HTMLSelectElement;
 const buttonLocationAddressBarDescription = $(
   '#button-location-address-bar-description',
 );
@@ -59,7 +62,13 @@ async function initByPermissionsAndStorage() {
 
   errorPanel.classList.add('hidden');
   settingsPanel.classList.remove('hidden');
-  return updateCollectionIds();
+
+  const settings = await getSettings();
+  return updateCollectionIds(
+    bookmarksSettingsSelect,
+    removalSettingsSelect,
+    settings,
+  );
 }
 
 function initByUserSettings(isOnToolbar: boolean) {
@@ -83,9 +92,18 @@ openSetupButton.addEventListener('click', async () => {
   });
 });
 
-settingsSelector.addEventListener('change', async () => {
-  const collectionId = parseInt(settingsSelector.value, 10);
-  await setCollectionIdForRemoval(collectionId);
+[bookmarksSettingsSelect, removalSettingsSelect].forEach((element) => {
+  element.addEventListener('change', async () => {
+    const collectionIdForBookmarks = parseInt(
+      bookmarksSettingsSelect.value,
+      10,
+    );
+    const collectionIdForRemoval = parseInt(removalSettingsSelect.value, 10);
+    await updateSettings({
+      collectionIdForBookmarks,
+      collectionIdForRemoval,
+    });
+  });
 });
 
 initializeI18n();

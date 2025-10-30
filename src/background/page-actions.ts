@@ -1,5 +1,6 @@
 import { isAuthenticated } from '../common/access-token';
 import { PageState, setPageState } from '../common/page-state';
+import { getSettings } from '../common/settings';
 import { PageStateInfo } from '../common/storage';
 import { apiSearch } from './api';
 
@@ -41,9 +42,10 @@ export async function checkIfBookmarked(
   // Set the page action to the pending state.
   await setPageAction(tabId, { state: PageState.Pending });
 
+  const { collectionIdForBookmarks } = await getSettings();
   // Check if the page is bookmarked by URL.
   try {
-    const response = await apiSearch(-1, url);
+    const response = await apiSearch(collectionIdForBookmarks, url);
     if (response.count) {
       await setPageAction(tabId, {
         state: PageState.RemoveBookmark,

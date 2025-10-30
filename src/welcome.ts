@@ -1,7 +1,7 @@
 import { getAccessTokenFromStorage } from './common/access-token';
 import { AUTHORIZATION_URL } from './common/constants';
 import { ALL_HOST_PERMISSION } from './common/host-permission';
-import { setCollectionIdForRemoval } from './common/settings';
+import { getSettings, updateSettings } from './common/settings';
 import { $ } from './document/helper';
 import { initializeI18n } from './document/i18n';
 import { updateCollectionIds } from './document/settings';
@@ -15,7 +15,10 @@ const grantTabsPermissionButton = $('#grant-tabs-permission');
 const raindropPermissionSection = $('#raindrop-permission-section');
 const grantRaindropPermissionButton = $('#grant-raindrop-permission');
 const settingsSection = $('#settings-section');
-const settingsSelector = $('#remove-collection-id') as HTMLSelectElement;
+const bookmarksSettingsSelect = $(
+  '#bookmarks-collection-id',
+) as HTMLSelectElement;
+const removalSettingsSelect = $('#removal-collection-id') as HTMLSelectElement;
 const settingsCloseButton = $('#close');
 
 function resetSections() {
@@ -24,7 +27,9 @@ function resetSections() {
       section.inert = true;
     },
   );
-  settingsSelector.disabled = true;
+  [bookmarksSettingsSelect, removalSettingsSelect].forEach((element) => {
+    element.disabled = true;
+  });
 }
 
 async function chooseStep() {
@@ -39,8 +44,13 @@ async function chooseStep() {
     return;
   }
 
+  const settings = await getSettings();
   settingsSection.inert = false;
-  await updateCollectionIds();
+  await updateCollectionIds(
+    bookmarksSettingsSelect,
+    removalSettingsSelect,
+    settings,
+  );
 }
 
 [browser.permissions.onRemoved, browser.permissions.onAdded].forEach(
@@ -70,9 +80,18 @@ grantRaindropPermissionButton.addEventListener('click', () => {
   );
 });
 
-settingsSelector.addEventListener('change', async () => {
-  const collectionId = parseInt(settingsSelector.value, 10);
-  await setCollectionIdForRemoval(collectionId);
+[bookmarksSettingsSelect, removalSettingsSelect].forEach((element) => {
+  element.addEventListener('change', async () => {
+    const collectionIdForBookmarks = parseInt(
+      bookmarksSettingsSelect.value,
+      10,
+    );
+    const collectionIdForRemoval = parseInt(removalSettingsSelect.value, 10);
+    await updateSettings({
+      collectionIdForBookmarks,
+      collectionIdForRemoval,
+    });
+  });
 });
 
 settingsCloseButton.addEventListener('click', () => {

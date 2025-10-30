@@ -6,6 +6,11 @@ interface AccessToken {
   expiresAt: number;
 }
 
+interface Settings {
+  collectionIdForBookmarks: number;
+  collectionIdForRemoval: number;
+}
+
 interface AbstractPageStateInfo {
   state: PageState;
 }

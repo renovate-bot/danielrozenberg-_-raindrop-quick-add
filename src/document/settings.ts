@@ -1,22 +1,26 @@
 import { apiGetCollections } from '../background/api';
-import { getCollectionIdForRemoval } from '../common/settings';
-import { $, $$ } from './helper';
+import { Settings } from '../common/storage';
 
-const settingsSelector = $('#remove-collection-id') as HTMLSelectElement;
-
-export async function updateCollectionIds() {
+export async function updateCollectionIds(
+  bookmarksSettingsSelect: HTMLSelectElement,
+  removalSettingsSelect: HTMLSelectElement,
+  { collectionIdForBookmarks, collectionIdForRemoval }: Settings,
+) {
   const collectionsResponse = await apiGetCollections();
-  $$('#remove-collection-id option:not(:first-child)').forEach((option) => {
-    option.remove();
-  });
-  for (const { _id, title } of collectionsResponse.items) {
-    const option = document.createElement('option');
-    option.value = _id.toFixed(0);
-    option.textContent = title;
-    settingsSelector.appendChild(option);
-  }
+  [bookmarksSettingsSelect, removalSettingsSelect].forEach((element) => {
+    element.querySelectorAll('option:not(:first-child)').forEach((option) => {
+      option.remove();
+    });
+    for (const { _id, title } of collectionsResponse.items) {
+      const option = document.createElement('option');
+      option.value = _id.toFixed(0);
+      option.textContent = title;
+      element.appendChild(option);
+    }
 
-  const collectionIdForRemoval = await getCollectionIdForRemoval();
-  settingsSelector.value = collectionIdForRemoval?.toFixed(0) ?? '0';
-  settingsSelector.disabled = false;
+    element.disabled = false;
+  });
+
+  bookmarksSettingsSelect.value = collectionIdForBookmarks.toFixed(0);
+  removalSettingsSelect.value = collectionIdForRemoval.toFixed(0);
 }

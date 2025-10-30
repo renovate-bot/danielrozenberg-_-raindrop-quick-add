@@ -1,5 +1,5 @@
 import { PageState } from '../common/page-state';
-import { getCollectionIdForRemoval } from '../common/settings';
+import { getSettings } from '../common/settings';
 import { apiAddBookmark, apiDeleteBookmark, apiUpdateBookmark } from './api';
 import { setPageAction } from './page-actions';
 
@@ -11,8 +11,9 @@ export async function addBookmark(
   console.log('Adding bookmark for URL', url, 'for tab', tabId);
 
   await setPageAction(tabId, { state: PageState.Pending });
+  const { collectionIdForBookmarks } = await getSettings();
 
-  const response = await apiAddBookmark(url, title);
+  const response = await apiAddBookmark(url, title, collectionIdForBookmarks);
   if (!response.result) {
     console.error('Failed to add bookmark:', response);
     await setPageAction(tabId, { state: PageState.Error });
@@ -40,9 +41,9 @@ export async function removeBookmark(
     state: PageState.Pending,
   });
 
-  const collectionId = await getCollectionIdForRemoval();
-  const response = collectionId
-    ? await apiUpdateBookmark(bookmarkId, collectionId)
+  const { collectionIdForRemoval } = await getSettings();
+  const response = collectionIdForRemoval
+    ? await apiUpdateBookmark(bookmarkId, collectionIdForRemoval)
     : await apiDeleteBookmark(bookmarkId);
   if (!response.result) {
     console.error('Failed to remove bookmark:', response);

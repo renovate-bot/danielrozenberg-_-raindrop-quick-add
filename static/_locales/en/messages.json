@@ -35,11 +35,19 @@
     "message": "Step 3: Choose what to do when removing a bookmark",
     "description": "Title of the section explaining the settings."
   },
-  "welcomeSettingsRemoveLabel": {
+  "settingsBookmarksCollectionIdLabel": {
+    "message": "Where should bookmarks go when added?",
+    "description": "Label for the setting that allows the user to choose where bookmarks are added."
+  },
+  "settingsRemovalCollectionIdLabel": {
     "message": "Where should bookmarks go when removed?",
     "description": "Label for the setting that allows the user to choose what happens when a bookmark is removed."
   },
-  "welcomeSettingsRemoveToTrash": {
+  "settingsBookmarkToUnsorted": {
+    "message": "Unsorted",
+    "description": "Option to add a bookmark to the Unsorted collection."
+  },
+  "settingsRemoveToTrashOption": {
     "message": "Trash",
     "description": "Option to delete a bookmark, sending it to the trash."
   },
