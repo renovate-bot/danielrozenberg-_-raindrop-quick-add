@@ -47,7 +47,10 @@
   "default_locale": "en",
   "browser_specific_settings": {
     "gecko": {
-      "id": "raindrop-quick-add@firefox.danielrozenberg.com"
+      "id": "raindrop-quick-add@firefox.danielrozenberg.com",
+      "data_collection_permissions": {
+        "required": ["bookmarksInfo"]
+      }
     }
   }
 }
