@@ -1,6 +1,6 @@
 {
   "name": "raindrop-quick-add",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Firefox extension to quickly add, delete, or archive bookmarks in Raindrop",
   "type": "module",
   "repository": {
